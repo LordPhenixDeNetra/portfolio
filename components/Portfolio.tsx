@@ -1,73 +1,17 @@
 "use client"
 
-// components/Portfolio.tsx
-import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Github, Linkedin, Twitter, Instagram, Mail, Phone, MapPin, Download, ChevronDown } from 'lucide-react';
-// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-// import portfolioData from '@/data/portfolio.json';
-// import { Badge } from "@/components/ui/badge";
-
-// Types definitions
-interface SkillGroup {
-    category: string;
-    icon: string;
-    items: string[];
-    color: string;
-}
-
-interface Project {
-    title: string;
-    description: string;
-    image: string;
-    tech: string[];
-    category: string;
-    color: string;
-}
-
-interface Experience {
-    date: string;
-    title: string;
-    company: string;
-    description: string;
-}
-
-interface Education {
-    degree: string;
-    school: string;
-    date: string;
-    description: string;
-}
-
-interface PersonalInfo {
-    name: string;
-    title: string;
-    description: string;
-    address: string;
-    phone: string;
-    email: string;
-    socials: {
-        [key: string]: string;
-    };
-}
-
-interface PortfolioData {
-    personal: PersonalInfo;
-    skills: SkillGroup[];
-    projects: Project[];
-    experience: Experience[];
-    education: Education[];
-}
+import React, {useState, useEffect} from 'react';
+import {Moon, Sun, Github, Linkedin, Twitter, Instagram, Mail, Phone, MapPin, ChevronDown} from 'lucide-react';
+import {Button} from "@/components/ui/button";
+import portfolioData from '@/data/portfolio.json';
 
 const Portfolio = () => {
-    // State declarations
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
     const [scrollProgress, setScrollProgress] = useState(0);
-    const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null);
 
-// Scroll handler effect
+    // Gestion du scroll et de la section active
     useEffect(() => {
         const handleScroll = () => {
             const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -93,103 +37,30 @@ const Portfolio = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Data fetching effect
+    // Simuler un temps de chargement
     useEffect(() => {
-        const loadPortfolioData = async () => {
-            try {
-                // Dans un environnement réel, vous feriez un appel API ici
-                // const response = await fetch('/api/portfolio-data');
-                const data: PortfolioData = {
-                    personal: {
-                        name: "Moussa THIOR",
-                        title: "Développeur Full Stack & Data Scientist",
-                        description: "Passionné par la création d'expériences numériques innovantes",
-                        address: "Pikine Guinaw Rails Nord, Dakar – Sénégal",
-                        phone: "+221 77 680 42 21",
-                        email: "moussa3.thior@ucad.edu.sn",
-                        socials: {
-                            github: "LordPhenixDeNetra",
-                            linkedin: "moussa-thior-699500195",
-                            twitter: "N_THIOR",
-                            instagram: "n_thior_n"
-                        }
-                    },
-                    skills: [
-                        {
-                            category: "Développement",
-                            icon: "🚀",
-                            items: ["Python", "Java", "C/C++", "JavaScript", "Dart", "C#"],
-                            color: "from-purple-500 to-blue-500"
-                        },
-                        {
-                            category: "Data Science",
-                            icon: "🤖",
-                            items: ["Machine Learning", "TensorFlow", "PyTorch", "Power BI", "Tableau"],
-                            color: "from-green-500 to-teal-500"
-                        },
-                        {
-                            category: "Web & Mobile",
-                            icon: "📱",
-                            items: ["React", "Angular", "Flutter", "Spring Boot", "ASP.NET"],
-                            color: "from-orange-500 to-red-500"
-                        },
-
-
-                    ],
-                    projects: [
-                        {
-                            title: "ProjetAPIsAndWS2023",
-                            description: "Architecture moderne et évolutive pour API backend",
-                            image: "/api/placeholder/600/400",
-                            tech: ["Java", "Spring Boot", "C#", "ASP.NET"],
-                            category: "Web Development",
-                            color: "from-blue-600 to-indigo-600"
-                        },
-                        {
-                            title: "Fooocus AI",
-                            description: "Système d'optimisation IA innovant",
-                            image: "/api/placeholder/600/400",
-                            tech: ["Python", "TensorFlow", "PyTorch"],
-                            category: "Intelligence Artificielle",
-                            color: "from-purple-600 to-pink-600"
-                        },
-                        {
-                            title: "Hacker News Mobile",
-                            description: "Application mobile moderne et performante",
-                            image: "/api/placeholder/600/400",
-                            tech: ["Flutter", "Dart", "Firebase"],
-                            category: "Mobile",
-                            color: "from-green-600 to-teal-600"
-                        }
-                    ],
-                    experience: [/* ... données d'expérience ... */],
-                    education: [/* ... données d'éducation ... */]
-                };
-
-                setPortfolioData(data);
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Error loading portfolio data:', error);
-                setIsLoading(false);
-            }
-        };
-
-        loadPortfolioData();
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
     }, []);
 
-    // Theme toggle handler
+    // Gestion du thème
     const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
         document.documentElement.classList.toggle('dark');
     };
 
-    // Loading state
-    if (isLoading || !portfolioData) {
+    // État de chargement
+    if (isLoading) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+            <div
+                className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
                 <div className="relative">
-                    <div className="w-20 h-20 border-4 border-white rounded-full animate-spin border-t-transparent"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold">
+                    <div
+                        className="w-20 h-20 border-4 border-white rounded-full animate-spin border-t-transparent"></div>
+                    <div
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold">
                         MT
                     </div>
                 </div>
@@ -198,57 +69,116 @@ const Portfolio = () => {
     }
 
     return (
-        <div className={`min-h-screen transition-colors duration-500 ${isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+        <div
+            className={`min-h-screen transition-colors duration-500 ${isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
             {/* Progress Bar */}
             <div
                 className="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 z-50 transition-all duration-300"
-                style={{ width: `${scrollProgress}%` }}
-            />
+                style={{width: `${scrollProgress}%`}}/>
+
+            {/*/!* Navigation *!/*/}
+            {/*<nav className="fixed top-4 right-4 z-50 flex items-center space-x-4">*/}
+            {/*    <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-full px-4 py-2 shadow-lg">*/}
+            {/*        {['hero', 'skills', 'projects', 'experience', 'education'].map((section) => (*/}
+            {/*            <a*/}
+            {/*                key={section}*/}
+            {/*                href={`#${section}`}*/}
+            {/*                className={`px-3 py-1 rounded-full transition-colors ${*/}
+            {/*                    activeSection === section*/}
+            {/*                        ? 'bg-blue-500 text-white'*/}
+            {/*                        : 'hover:bg-gray-200 dark:hover:bg-gray-700'*/}
+            {/*                }`}*/}
+            {/*            >*/}
+            {/*                {section.charAt(0).toUpperCase() + section.slice(1)}*/}
+            {/*            </a>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*    <Button*/}
+            {/*        variant="outline"*/}
+            {/*        size="icon"*/}
+            {/*        onClick={toggleTheme}*/}
+            {/*        className="rounded-full hover:scale-110 transition-transform shadow-lg"*/}
+            {/*    >*/}
+            {/*        {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}*/}
+            {/*    </Button>*/}
+            {/*</nav>*/}
 
             {/* Navigation */}
-            <nav className="fixed top-4 right-4 z-50 flex items-center space-x-4">
-                <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-full px-4 py-2 shadow-lg">
-                    {['hero', 'skills', 'projects', 'experience', 'education'].map((section) => (
-                        <a
-                            key={section}
-                            href={`#${section}`}
-                            className={`px-3 py-1 rounded-full transition-colors ${
-                                activeSection === section
-                                    ? 'bg-blue-500 text-white'
-                                    : 'hover:bg-gray-200 dark:hover:bg-gray-700'
-                            }`}
+            {/* Navigation */}
+            {/* Navigation */}
+            <nav className="fixed top-4 left-0 right-0 px-4 z-50">
+                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-end gap-4">
+                    {/* Menu principal avec scroll horizontal sur mobile */}
+                    <div className="w-full sm:w-auto relative overflow-x-auto scrollbar-hide">
+                        <div
+                            className="flex items-center justify-between sm:justify-end bg-white/80 dark:bg-gray-800/80
+                backdrop-blur-sm rounded-full px-4 py-2 shadow-lg"
                         >
-                            {section.charAt(0).toUpperCase() + section.slice(1)}
-                        </a>
-                    ))}
+                            <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
+                                {['hero', 'skills', 'projects', 'experience', 'education'].map(
+                                    (section: string) => (
+                                        <a
+                                            key={section}
+                                            href={`#${section}`}
+                                            className={`px-2 sm:px-3 py-1 sm:py-1.5 
+                                    text-xs sm:text-sm 
+                                    whitespace-nowrap rounded-full 
+                                    transition-all duration-300
+                                    flex-shrink-0
+                                    hover:scale-105
+                                    ${
+                                                activeSection === section
+                                                    ? 'bg-blue-500 text-white font-medium shadow-md'
+                                                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200/50 dark:hover:bg-gray-700/50'
+                                            }`}
+                                        >
+                                            {section.charAt(0).toUpperCase() + section.slice(1)}
+                                        </a>
+                                    )
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Indicateurs de défilement (optionnel) */}
+                        <div
+                            className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white/80 to-transparent dark:from-gray-800/80 pointer-events-none sm:hidden"></div>
+                        <div
+                            className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white/80 to-transparent dark:from-gray-800/80 pointer-events-none sm:hidden"></div>
+                    </div>
+
+                    {/* Bouton thème */}
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={toggleTheme}
+                        className="shrink-0 rounded-full hover:scale-110 transition-all duration-300 shadow-lg
+                bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm"
+                    >
+                        {isDarkMode ? <Sun className="h-4 sm:h-5 w-4 sm:w-5"/> :
+                            <Moon className="h-4 sm:h-5 w-4 sm:w-5"/>}
+                    </Button>
                 </div>
-                <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={toggleTheme}
-                    className="rounded-full hover:scale-110 transition-transform shadow-lg"
-                >
-                    {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                </Button>
             </nav>
+
 
             {/* Hero Section */}
             <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                {/* Animated Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-900/40 dark:to-purple-900/40">
+                {/* Background Animation */}
+                <div
+                    className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-900/40 dark:to-purple-900/40">
                     <div className="absolute inset-0 backdrop-blur-3xl">
-                        {Array.from({ length: 20 }).map((_, i) => (
+                        {Array.from({length: 20}).map((_, i) => (
                             <div
                                 key={i}
                                 className="absolute rounded-full mix-blend-multiply filter blur-xl animate-float"
                                 style={{
-                                    left: `${Math.random() * 100}%`,
-                                    top: `${Math.random() * 100}%`,
-                                    width: `${Math.random() * 200 + 50}px`,
-                                    height: `${Math.random() * 200 + 50}px`,
-                                    background: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.1)`,
-                                    animationDelay: `${Math.random() * 5}s`,
-                                    animationDuration: `${Math.random() * 10 + 10}s`
+                                    left: `${(i * 7) % 100}%`,
+                                    top: `${(i * 11) % 100}%`,
+                                    width: `${150 + (i * 10) % 100}px`,
+                                    height: `${150 + (i * 10) % 100}px`,
+                                    background: 'rgba(130, 130, 255, 0.1)',
+                                    animationDelay: `${i * 0.2}s`,
+                                    animationDuration: `${10 + i}s`
                                 }}
                             />
                         ))}
@@ -260,9 +190,11 @@ const Portfolio = () => {
                     {/* Avatar */}
                     <div className="mb-8 relative">
                         <div className="w-40 h-40 mx-auto relative">
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 animate-spin-slow"></div>
-                            <div className="absolute inset-1 rounded-full bg-white dark:bg-gray-900"></div>
-                            <div className="absolute inset-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-5xl font-bold">
+                            <div
+                                className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 animate-spin-slow"/>
+                            <div className="absolute inset-1 rounded-full bg-white dark:bg-gray-900"/>
+                            <div
+                                className="absolute inset-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-5xl font-bold">
                                 {portfolioData.personal.name.charAt(0)}
                             </div>
                         </div>
@@ -297,7 +229,8 @@ const Portfolio = () => {
                                     rel="noopener noreferrer"
                                     className="transform hover:scale-110 transition-transform"
                                 >
-                                    <Icon className="w-8 h-8 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" />
+                                    <Icon
+                                        className="w-8 h-8 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"/>
                                 </a>
                             ) : null;
                         })}
@@ -306,27 +239,28 @@ const Portfolio = () => {
                     {/* Contact Info */}
                     <div className="flex flex-wrap justify-center items-center gap-8 text-gray-600 dark:text-gray-300">
                         <div className="flex items-center space-x-2">
-                            <MapPin className="w-6 h-6" />
+                            <MapPin className="w-6 h-6"/>
                             <span>{portfolioData.personal.address}</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <Mail className="w-6 h-6" />
+                            <Mail className="w-6 h-6"/>
                             <span>{portfolioData.personal.email}</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <Phone className="w-6 h-6" />
+                            <Phone className="w-6 h-6"/>
                             <span>{portfolioData.personal.phone}</span>
                         </div>
                     </div>
 
                     {/* Scroll Indicator */}
                     <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-                        <ChevronDown className="w-8 h-8 text-gray-400" />
+                        <ChevronDown className="w-8 h-8 text-gray-400"/>
                     </div>
                 </div>
             </section>
 
-            {/* Autres sections (Skills, Projects, etc.) à ajouter ici... */}
+            {/* Autres sections à ajouter ici */}
+            {/* Skills, Projects, Experience, Education sections */}
 
             {/* Skills Section */}
             <section id="skills" className="min-h-screen py-20 bg-gray-50 dark:bg-gray-900">
@@ -335,27 +269,7 @@ const Portfolio = () => {
                         Compétences
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[
-                            {
-                                category: "Développement",
-                                icon: "🚀",
-                                items: ["Python", "Java", "C/C++", "JavaScript", "Dart", "C#"],
-                                color: "from-blue-500 to-indigo-500"
-                            },
-                            {
-                                category: "Data Science",
-                                icon: "🤖",
-                                items: ["Machine Learning", "TensorFlow", "PyTorch", "Power BI", "Tableau"],
-                                color: "from-purple-500 to-pink-500"
-                            },
-                            {
-                                category: "Web & Mobile",
-                                icon: "📱",
-                                items: ["React", "Angular", "Flutter", "Spring Boot", "ASP.NET"],
-                                color: "from-green-500 to-teal-500"
-                            },
-
-                        ].map((skill, index) => (
+                        {portfolioData.skills.map((skill, index) => (
                             <div
                                 key={index}
                                 className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 transform hover:-translate-y-2 transition-all duration-300"
@@ -385,31 +299,12 @@ const Portfolio = () => {
                         Projets
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[
-                            {
-                                title: "ProjetAPIsAndWS2023",
-                                description: "Architecture moderne et évolutive pour API backend",
-                                tech: ["Java", "Spring Boot", "C#", "ASP.NET"],
-                                color: "from-blue-500 to-indigo-500"
-                            },
-                            {
-                                title: "AgriBrainSN",
-                                description: "Plateforme de resilience agricole basé sur l'IA",
-                                tech: ["Python", "TensorFlow", "PyTorch", "Streamlit"],
-                                color: "from-purple-500 to-pink-500"
-                            },
-                            {
-                                title: "Hacker News Mobile",
-                                description: "Application mobile moderne et performante",
-                                tech: ["Flutter", "Dart", "Firebase"],
-                                color: "from-green-500 to-teal-500"
-                            }
-                        ].map((project, index) => (
+                        {portfolioData.projects.map((project, index) => (
                             <div
                                 key={index}
                                 className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl transform hover:-translate-y-2 transition-all duration-300"
                             >
-                                <div className={`h-48 bg-gradient-to-r ${project.color}`} />
+                                <div className={`h-48 bg-gradient-to-r ${project.color}`}/>
                                 <div className="p-6">
                                     <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                                     <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
@@ -438,36 +333,52 @@ const Portfolio = () => {
                     </h2>
                     <div className="max-w-3xl mx-auto">
                         <div className="relative">
-                            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-blue-500 to-purple-500"></div>
-                            {[
-                                {
-                                    date: "Janvier 2024 - Présent",
-                                    title: "Stagiaire développeur",
-                                    company: "Caisse de Sécurité Sociale",
-                                    description: "Développement d'applications et intégration de solutions"
-                                },
-                                {
-                                    date: "Juin 2024 - Présent",
-                                    title: "Data Scientist",
-                                    company: "CURI",
-                                    description: "Recherche et développement en Data Sciences"
-                                }
-                            ].map((exp, index) => (
-                                <div key={index} className="relative mb-12">
-                                    <div className={`flex items-center ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}>
-                                        <div className="w-1/2" />
-                                        <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
-                                        <div className={`w-1/2 ${index % 2 === 0 ? 'pr-12' : 'pl-12'}`}>
-                                            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl">
-                                                <div className="text-sm text-blue-500 font-semibold mb-2">{exp.date}</div>
+                            {/* Timeline verticale - visible uniquement sur desktop */}
+                            <div className="absolute left-8 sm:left-1/2 top-0 h-full w-0.5
+                    bg-gradient-to-b from-blue-500 to-purple-500 transform -translate-x-1/2"/>
+
+                            {/* Conteneur des expériences */}
+                            <div className="space-y-12">
+                                {[
+                                    {
+                                        date: "Janvier 2024 - Présent",
+                                        title: "Stagiaire développeur",
+                                        company: "Caisse de Sécurité Sociale",
+                                        description: "Développement d'applications et intégration de solutions"
+                                    },
+                                    {
+                                        date: "Juin 2024 - Présent",
+                                        title: "Data Scientist",
+                                        company: "CURI",
+                                        description: "Recherche et développement en Data Sciences"
+                                    }
+                                ].map((exp, index) => (
+                                    <div key={index} className="relative flex flex-col sm:flex-row group">
+                                        {/* Point de la timeline */}
+                                        <div className="absolute left-8 sm:left-1/2 h-4 w-4 rounded-full bg-gradient-to-r
+                                from-blue-500 to-purple-500 transform -translate-x-1/2
+                                transition-transform group-hover:scale-125"/>
+
+                                        {/* Contenu */}
+                                        <div className={`
+                                flex-1 ml-16 sm:ml-0
+                                ${index % 2 === 0 ? 'sm:pr-12 sm:text-right' : 'sm:pl-12 sm:ml-auto'}
+                            `}>
+                                            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl
+                                    transform transition-transform hover:-translate-y-1">
+                                    <span className="inline-block text-sm text-blue-500 font-semibold mb-2">
+                                        {exp.date}
+                                    </span>
                                                 <h3 className="text-xl font-semibold mb-1">{exp.title}</h3>
-                                                <div className="text-purple-600 dark:text-purple-400 mb-2">{exp.company}</div>
+                                                <div className="text-purple-600 dark:text-purple-400 mb-2">
+                                                    {exp.company}
+                                                </div>
                                                 <p className="text-gray-600 dark:text-gray-400">{exp.description}</p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -485,7 +396,7 @@ const Portfolio = () => {
                                 degree: "Master en Informatique",
                                 school: "Université Cheikh Anta Diop de Dakar",
                                 date: "2022 - Présent",
-                                description: "Spécialisation en Système d'informations réparties  et data science"
+                                description: "Spécialisation en Système d'informations réparties et data science"
                             },
                             {
                                 degree: "Licence en Informatique",
@@ -500,10 +411,15 @@ const Portfolio = () => {
                             >
                                 <div className="flex justify-between items-start mb-4">
                                     <div>
-                                        <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400">{edu.degree}</h3>
-                                        <div className="text-purple-600 dark:text-purple-400 mt-1">{edu.school}</div>
+                                        <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400">
+                                            {edu.degree}
+                                        </h3>
+                                        <div className="text-purple-600 dark:text-purple-400 mt-1">
+                                            {edu.school}
+                                        </div>
                                     </div>
-                                    <span className="px-4 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">
+                                    <span
+                                        className="px-4 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">
               {edu.date}
             </span>
                                 </div>
