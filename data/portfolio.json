@@ -1,0 +1,62 @@
+{
+  "personal": {
+    "name": "Moussa THIOR",
+    "title": "Développeur Full Stack & Data Scientist",
+    "description": "Passionné par la création d'expériences numériques innovantes",
+    "address": "Pikine Guinaw Rails Nord, Dakar – Sénégal",
+    "phone": "+221 77 680 42 21",
+    "email": "moussa3.thior@ucad.edu.sn",
+    "socials": {
+      "github": "LordPhenixDeNetra",
+      "linkedin": "moussa-thior-699500195",
+      "twitter": "N_THIOR",
+      "instagram": "n_thior_n"
+    }
+  },
+  "skills": [
+    {
+      "category": "Développement",
+      "icon": "🚀",
+      "items": ["Python", "Java", "C/C++", "JavaScript", "Dart", "C#"],
+      "color": "from-purple-500 to-blue-500"
+    },
+    {
+      "category": "Data Science",
+      "icon": "🤖",
+      "items": ["Machine Learning", "TensorFlow", "PyTorch", "Power BI", "Tableau"],
+      "color": "from-green-500 to-teal-500"
+    },
+    {
+      "category": "Web & Mobile",
+      "icon": "📱",
+      "items": ["React", "Angular", "Flutter", "Spring Boot", "ASP.NET"],
+      "color": "from-orange-500 to-red-500"
+    }
+  ],
+  "projects": [
+    {
+      "title": "ProjetAPIsAndWS2023",
+      "description": "Architecture moderne et évolutive pour API backend",
+      "image": "/api/placeholder/600/400",
+      "tech": ["Java", "Spring Boot", "C#", "ASP.NET"],
+      "category": "Web Development",
+      "color": "from-blue-600 to-indigo-600"
+    },
+    {
+      "title": "Fooocus AI",
+      "description": "Système d'optimisation IA innovant",
+      "image": "/api/placeholder/600/400",
+      "tech": ["Python", "TensorFlow", "PyTorch"],
+      "category": "Intelligence Artificielle",
+      "color": "from-purple-600 to-pink-600"
+    },
+    {
+      "title": "Hacker News Mobile",
+      "description": "Application mobile moderne et performante",
+      "image": "/api/placeholder/600/400",
+      "tech": ["Flutter", "Dart", "Firebase"],
+      "category": "Mobile",
+      "color": "from-green-600 to-teal-600"
+    }
+  ]
+}
